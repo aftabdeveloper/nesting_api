@@ -13,3 +13,16 @@ export const create = async (req,res)=>{
         res.status(500).json({success: false})
     }
 }
+
+export const fetchById = async (req,res)=>{
+    try
+    {
+        const topics = await Topic.findById(req.query.id,{_id: 1, chapters:1})
+        .populate('chapters')
+        res.status(200).json(topics)
+    }
+    catch(err)
+    {
+        res.status(500).json(err)
+    }
+}
